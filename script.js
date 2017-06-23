@@ -1,53 +1,54 @@
-var h1 = document.querySelector('h1')
-var body = document.querySelector('body')
+var colorButton = document.querySelector('#colorButton')
+colorButton.addEventListener('click', changeColor)
 
-// var userIn = parseInt(prompt('pls enter your guess'))
-
-// **Update: Button added to start game;
-// issues: 1) re-starting game does not generate new random number only page re-load does
-document.getElementById('startBtn').addEventListener('click', setTimeout(getUser, 1000))
-document.getElementById('startBtn').addEventListener('click', restart)
-
-
-function getRandomIntInclusive (min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min // The maximum is inclusive and the minimum is inclusive
+function changeColor() {
+  var x = randomNumber()
+  var y = randomNumber()
+  var z = randomNumber()
+  var colorCode = "rgb(" + x + "," + y + "," + z + ")"
+  document.body.style.backgroundColor = colorCode
 }
 
-var ans = getRandomIntInclusive(1, 5)
-console.log(ans)
-
-function higherOrLower (userIn, ans) {
-  if (userIn !== ans) {
-    if (userIn > ans) {
-      h1.innerText = 'lower pls'
-      return setTimeout(getUser, 1000)
-    } else if (userIn < ans) {
-      h1.innerText = 'higher pls'
-      return setTimeout(getUser, 1000)
-    }
-  }
-  body.style.backgroundColor = 'green'
-  h1.innerText = 'Game Won'
+function randomNumber() {
+  return Math.floor(Math.random() * 256)
 }
 
-// **Update: Modified getUser to end game on 'cancel' and 'empty prompt'.
-function getUser () {
-  var userIn = prompt('key in n')
-  if (userIn === '' || userIn === null) { return } else if (userIn !== ans) { return higherOrLower(userIn, ans) } else if (userIn == ans) { console.log('you won') } else { return }
-  // return higherOrLower(userIn, ans)
-}
+// body.style.backgroundColor = [insert the random color here]
 
-function restart () {
-  h1.innerText = 'please key in a number to start guessing'
-  body.style.backgroundColor = 'rgb(150, 75, 27)'
-  setTimeout(getUser, 1000)
-  ans = getRandomIntInclusive(1, 5)
-  console.log(ans)
-}
-
-// function should get input,
-// check and change css
-// decide if should loop back to get input
-// setTimeout(getUser, 1000) **Update:removed to prevent auto-start upon page load**
+// var btn = document.getElementById('gameButton')
+// var userGuess = document.getElementById('guessingBox').value
+//
+// btn.addEventListener('click', higherOrLower(userGuess, 100))
+// // WHY IS THE FUNCTION higherOrLower RUNNING EVEN BEFORE I CAN CLICK???
+// // function that checks guessed number with the random number
+// function higherOrLower (guessedNumber, randomNumber) {
+//   console.log('guessedNumber is ', guessedNumber)
+//   console.log('randomNumber is ', randomNumber)
+//   if (guessedNumber > randomNumber) {
+//     updateP('lower, random number is ', randomNumber)
+//     repeatGuess(randomNumber)
+//   } else if (guessedNumber < randomNumber) {
+//     updateP('higher, random number is ', randomNumber)
+//     repeatGuess(randomNumber)
+//   } else {
+//     updateP('correct, random number is ' + randomNumber)
+//   }
+// }
+// // This function [repeats higherorlower until correct is reached]
+// function repeatGuess (answer) {
+//   var newGuess = prompt('Give me another number') // REMEMBER prompt returns a string, not an integer. So have to run parseInt on this variable first
+//   higherOrLower(newGuess, answer)
+// }
+//
+// // this function updates p
+// function updateP (newP) {
+//   var p = document.querySelector('p')
+//   /* var h1 = document.getElementsByTagName("h1") // this is the
+//   alternative to querySelector. looks more familiar to me */
+//   p.textContent = newP
+// }
+// /* you can figure out the methods available to any document element by
+// typing this into the Inspect terminal:
+// var h1 = document.querySelector("h1")
+// h1. [once you enter this, a box will pop up showing you all the methods
+// available to h1] */
